@@ -7,37 +7,22 @@ import "../../styles/demo.css";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
+	const [mostrar, setMostrar] = useState(false)
 
-	return (
-		<div className="container">
-			<ul className="list-group">
-				{store.demo.map((item, index) => {
-					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
-							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
-							</Link>
-							{// Conditional render example
-							// Check to see if the background is orange, if so, display the message
-							item.background === "orange" ? (
-								<p style={{ color: item.initial }}>
-									Check store/flux.js scroll to the actions to see the code
-								</p>
-							) : null}
-							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
-							</button>
-						</li>
-					);
-				})}
-			</ul>
-			<br />
-			<Link to="/">
-				<button className="btn btn-primary">Back home</button>
-			</Link>
-		</div>
-	);
+	const handleButton = () => {
+		actions.get_profile()
+		setMostrar(true)
+		console.log(store.perfil)
+	}
+
+
+	return (<><div className=" container text-light">
+	<h1 className="text-center text-warning">Hola</h1>
+	<h2 className="text-center text-light">Mira la información de tu perfil</h2>
+	<button className="btn btn-danger" onClick={handleButton}>Click acá</button>
+	{ mostrar ? <div className="container text-center"><h1>Email: {store.perfil.email}</h1><h1>Password: {store?.perfil?.password}</h1></div> : null}
+	</div></>
+		
+
+	)
 };
